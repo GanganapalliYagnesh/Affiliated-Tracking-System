@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import API_BASE from '../config/api';
 
 const AdminPayouts = () => {
   const [payouts, setPayouts] = useState([]);
@@ -10,7 +11,7 @@ const AdminPayouts = () => {
 
   const fetchPayouts = async () => {
     try {
-      const res = await fetch('/api/admin/payouts', {
+      const res = await fetch(`${API_BASE}/api/admin/payouts`, {
         headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
       });
       const data = await res.json();
@@ -24,7 +25,7 @@ const AdminPayouts = () => {
 
   const handleUpdateStatus = async (id, status) => {
     try {
-      const res = await fetch(`/api/admin/payouts/${id}/status`, {
+      const res = await fetch(`${API_BASE}/api/admin/payouts/${id}/status`, {
         method: 'PUT',
         headers: { 
           'Content-Type': 'application/json',

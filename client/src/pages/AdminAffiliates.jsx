@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import API_BASE from '../config/api';
 
 const AdminAffiliates = () => {
   const [affiliates, setAffiliates] = useState([]);
@@ -10,9 +11,7 @@ const AdminAffiliates = () => {
 
   const fetchAffiliates = async () => {
     try {
-      const res = await fetch('/api/admin/affiliates', {
-        headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
-      });
+      const res = await fetch(`${API_BASE}/api/admin/affiliates`, {
       const data = await res.json();
       if (res.ok) setAffiliates(data);
       setLoading(false);
@@ -24,7 +23,7 @@ const AdminAffiliates = () => {
 
   const handleUpdateStatus = async (id, status) => {
     try {
-      const res = await fetch(`/api/admin/affiliates/${id}/status`, {
+      const res = await fetch(`${API_BASE}/api/admin/affiliates/${id}/status`, {
         method: 'PUT',
         headers: { 
           'Content-Type': 'application/json',

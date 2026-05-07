@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import API_BASE from '../config/api';
 
 const Analytics = () => {
   const [data, setData] = useState(null);
@@ -19,7 +20,7 @@ const Analytics = () => {
 
   const fetchCampaigns = async () => {
     try {
-      const res = await fetch('/api/affiliates/campaigns', {
+      const res = await fetch(`${API_BASE}/api/affiliates/campaigns`, {
         headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
       });
       if (res.ok) setCampaigns(await res.json());

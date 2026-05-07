@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import API_BASE from '../config/api';
 
 const Payouts = () => {
   const [payouts, setPayouts] = useState([]);
@@ -16,8 +17,8 @@ const Payouts = () => {
     try {
       const token = localStorage.getItem('token');
       const [pRes, sRes] = await Promise.all([
-        fetch('/api/affiliates/payouts', { headers: { 'Authorization': `Bearer ${token}` } }),
-        fetch('/api/affiliates/stats', { headers: { 'Authorization': `Bearer ${token}` } })
+        fetch(`${API_BASE}/api/affiliates/payouts`, { headers: { 'Authorization': `Bearer ${token}` } }),
+        fetch(`${API_BASE}/api/affiliates/stats`, { headers: { 'Authorization': `Bearer ${token}` } })
       ]);
       if (pRes.ok) setPayouts(await pRes.json());
       if (sRes.ok) {
@@ -35,7 +36,7 @@ const Payouts = () => {
     if (parseFloat(amount) > balance) return alert('Insufficient balance');
 
     try {
-      const res = await fetch('/api/affiliates/payouts/request', {
+      const res = await fetch(`${API_BASE}/api/affiliates/payouts/request`, {
         method: 'POST',
         headers: { 
           'Content-Type': 'application/json',

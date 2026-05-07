@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import API_BASE from '../config/api';
 
 const AdminSettings = () => {
   const [settings, setSettings] = useState({
@@ -17,7 +18,7 @@ const AdminSettings = () => {
 
   const fetchSettings = async () => {
     try {
-      const res = await fetch('/api/settings', {
+      const res = await fetch(`${API_BASE}/api/settings`, {
         headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
       });
       if (res.ok) setSettings(await res.json());

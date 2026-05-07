@@ -15,8 +15,8 @@ const Campaigns = () => {
     try {
       const token = localStorage.getItem('token');
       const [campRes, profRes] = await Promise.all([
-        fetch('/api/affiliates/campaigns', { headers: { 'Authorization': `Bearer ${token}` } }),
-        fetch('/api/affiliates/profile', { headers: { 'Authorization': `Bearer ${token}` } })
+        fetch(`${API_BASE}/api/affiliates/campaigns`, { headers: { 'Authorization': `Bearer ${token}` } }),
+        fetch(`${API_BASE}/api/affiliates/profile`, { headers: { 'Authorization': `Bearer ${token}` } })
       ]);
       if (campRes.ok) setCampaigns(await campRes.json());
       if (profRes.ok) setProfile(await profRes.json());

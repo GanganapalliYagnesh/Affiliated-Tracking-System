@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
+import API_BASE from '../config/api';
 
 const Register = () => {
   const [formData, setFormData] = useState({ 
@@ -15,7 +16,7 @@ const Register = () => {
       return alert('Passwords do not match');
     }
     try {
-      const res = await fetch('/api/auth/register', {
+      const res = await fetch(`${API_BASE}/api/auth/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -40,7 +41,7 @@ const Register = () => {
 
   const handleGoogleLogin = async () => {
     try {
-      const res = await fetch('/api/auth/google-mock', {
+      const res = await fetch(`${API_BASE}/api/auth/google-mock`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' }
       });

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import API_BASE from '../config/api';
 
 const Shop = () => {
   const [searchParams] = useSearchParams();
@@ -14,7 +15,7 @@ const Shop = () => {
     try {
       const orderId = `ORD-RT-${Math.floor(Math.random() * 900000) + 100000}`;
       // Simulate real purchase by firing webhook
-      const res = await fetch('/api/webhooks/conversion', {
+      const res = await fetch(`${API_BASE}/api/webhooks/conversion`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

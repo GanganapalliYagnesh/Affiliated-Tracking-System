@@ -1,5 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import API_BASE from '../config/api';
 import { AuthContext } from '../context/AuthContext';
 
 const KYC = () => {
@@ -13,7 +14,7 @@ const KYC = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch('/api/affiliates/kyc', {
+      const res = await fetch(`${API_BASE}/api/affiliates/kyc`, {
         method: 'POST',
         headers: { 
           'Content-Type': 'application/json',

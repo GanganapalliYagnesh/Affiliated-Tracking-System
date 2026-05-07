@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import API_BASE from '../config/api';
 
 const AdminCampaigns = () => {
   const [campaigns, setCampaigns] = useState([]);
@@ -12,7 +13,7 @@ const AdminCampaigns = () => {
 
   const fetchCampaigns = async () => {
     try {
-      const res = await fetch('/api/admin/campaigns', {
+      const res = await fetch(`${API_BASE}/api/admin/campaigns`, {
         headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
       });
       const data = await res.json();
@@ -25,7 +26,7 @@ const AdminCampaigns = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch('/api/admin/campaigns', {
+      const res = await fetch(`${API_BASE}/api/admin/campaigns`, {
         method: 'POST',
         headers: { 
           'Content-Type': 'application/json',
