@@ -32,7 +32,7 @@ const AdminSettings = () => {
   const handleUpdate = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch('/api/settings', {
+      const res = await fetch(`${API_BASE}/api/settings`, {
         method: 'PUT',
         headers: { 
           'Content-Type': 'application/json',

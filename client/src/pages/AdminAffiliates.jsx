@@ -12,6 +12,8 @@ const AdminAffiliates = () => {
   const fetchAffiliates = async () => {
     try {
       const res = await fetch(`${API_BASE}/api/admin/affiliates`, {
+        headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+      });
       const data = await res.json();
       if (res.ok) setAffiliates(data);
       setLoading(false);
