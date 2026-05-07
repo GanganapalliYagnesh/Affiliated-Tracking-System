@@ -12,7 +12,7 @@ const app = express();
 
 // Middlewares
 app.use(cors({
-  origin: process.env.FRONTEND_URL || 'https://affiliated-tracking-system.vercel.app/login',
+  origin: process.env.FRONTEND_URL || 'https://affiliated-tracking-system.vercel.app',
   credentials: true
 }));
 app.use(express.json());

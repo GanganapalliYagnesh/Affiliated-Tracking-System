@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
+import API_BASE from '../config/api';
 
 const Dashboard = () => {
   const defaultStats = { balance: 0, totalEarnings: 0, pendingEarnings: 0, totalWithdrawn: 0, clicks: 0, conversions: 0, conversionRate: 0 };
@@ -18,8 +19,8 @@ const Dashboard = () => {
     try {
       const token = localStorage.getItem('token');
       const [statsRes, profileRes] = await Promise.all([
-        fetch('/api/affiliates/stats', { headers: { 'Authorization': `Bearer ${token}` } }),
-        fetch('/api/affiliates/profile', { headers: { 'Authorization': `Bearer ${token}` } })
+        fetch(`${API_BASE}/api/affiliates/stats`, { headers: { 'Authorization': `Bearer ${token}` } }),
+        fetch(`${API_BASE}/api/affiliates/profile`, { headers: { 'Authorization': `Bearer ${token}` } })
       ]);
       if (statsRes.ok) setStats(await statsRes.json());
       if (profileRes.ok) setProfile(await profileRes.json());

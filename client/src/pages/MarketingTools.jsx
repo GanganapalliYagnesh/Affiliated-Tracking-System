@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
+import API_BASE from '../config/api';
 
 const MarketingTools = () => {
   const [campaigns, setCampaigns] = useState([]);
@@ -17,8 +18,8 @@ const MarketingTools = () => {
     try {
       const token = localStorage.getItem('token');
       const [campRes, profRes] = await Promise.all([
-        fetch('/api/affiliates/campaigns', { headers: { 'Authorization': `Bearer ${token}` } }),
-        fetch('/api/affiliates/profile', { headers: { 'Authorization': `Bearer ${token}` } })
+        fetch(`${API_BASE}/api/affiliates/campaigns`, { headers: { 'Authorization': `Bearer ${token}` } }),
+        fetch(`${API_BASE}/api/affiliates/profile`, { headers: { 'Authorization': `Bearer ${token}` } })
       ]);
       
       if (campRes.ok) {
@@ -45,8 +46,8 @@ const MarketingTools = () => {
     const mockShort = `${profile.affiliate_code.toLowerCase().substring(0,3)}${selectedCampaign.substring(0,2)}`;
     const mockCoupon = `${profile.user_id.name.split(' ')[0].toUpperCase()}${Math.floor(Math.random() * 100)}`;
     
-    setGeneratedLink(`/api/track?ref=${profile.affiliate_code}&campaign=${selectedCampaign}`);
-    setShortLink(`/api/track/a/${mockShort}`);
+    setGeneratedLink(`${API_BASE}/api/track?ref=${profile.affiliate_code}&campaign=${selectedCampaign}`);
+    setShortLink(`${API_BASE}/api/track/a/${mockShort}`);
     setCouponCode(mockCoupon);
   };
 
