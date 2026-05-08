@@ -47,6 +47,10 @@ exports.getDashboardStats = async (req, res) => {
     const netProfit = totalRevenue - totalAffiliateRevenue;
     const roi = totalAffiliateRevenue > 0 ? ((netProfit / totalAffiliateRevenue) * 100).toFixed(2) : 0;
 
+    // Fraud & Security Stats (Simulated for Demo)
+    const fraudBlocked = Math.floor(totalClicks * 0.05); // Assume 5% of traffic is flagged
+    const botTraffic = (Math.random() * 2 + 1).toFixed(1);
+
     res.json({
       totalClicks,
       totalConversions,
@@ -55,6 +59,8 @@ exports.getDashboardStats = async (req, res) => {
       netProfit,
       roi,
       activePartners,
+      fraudBlocked,
+      botTraffic,
       topAffiliates: topAffiliates.map(a => ({
         id: a._id,
         name: a.user.name,

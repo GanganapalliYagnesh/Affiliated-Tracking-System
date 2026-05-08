@@ -93,6 +93,21 @@ const Campaigns = () => {
                       flex: 1
                     }}>{generatedLinks[c._id]}</code>
                   </div>
+
+                  <div style={{ marginTop: '1.2rem', display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                    <div style={{ background: 'white', padding: '6px', borderRadius: '6px', display: 'inline-block' }}>
+                      <img 
+                        src={`https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=${encodeURIComponent(window.location.origin + generatedLinks[c._id])}`} 
+                        alt="Campaign QR Code"
+                        style={{ width: '80px', height: '80px', display: 'block' }}
+                      />
+                    </div>
+                    <div>
+                      <p style={{ fontSize: '0.8rem', fontWeight: 'bold', color: 'var(--text-main)' }}>Offline Share (QR)</p>
+                      <p style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>Share this code for offline marketing and flyers.</p>
+                    </div>
+                  </div>
+
                   <p style={{ fontSize: '0.75rem', color: '#10b981', marginTop: '0.8rem', fontWeight: '600', display: 'flex', alignItems: 'center', gap: '4px' }}>
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
                     Copied to clipboard

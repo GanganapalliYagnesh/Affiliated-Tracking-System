@@ -62,6 +62,18 @@ const AdminPanel = () => {
             <strong>{stats.totalConversions}</strong>
           </div>
         </div>
+
+        <div className="card" style={{ borderTop: '4px solid #10b981', background: 'rgba(16, 185, 129, 0.02)' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <h3 style={{ fontSize: '0.8rem', textTransform: 'uppercase', color: '#10b981', letterSpacing: '0.1em' }}>Fraud Shield Active</h3>
+            <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#10b981', boxShadow: '0 0 8px #10b981' }}></div>
+          </div>
+          <p style={{ fontSize: '2.5rem', fontWeight: 'bold', margin: '0.5rem 0' }}>{stats.fraudBlocked}</p>
+          <div style={{ fontSize: '0.85rem', display: 'flex', justifyContent: 'space-between', marginTop: '1rem' }}>
+            <span style={{ color: 'var(--text-muted)' }}>Blocked Bots:</span>
+            <strong style={{ color: '#ef4444' }}>{stats.botTraffic}% traffic</strong>
+          </div>
+        </div>
       </div>
 
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', gap: '2rem' }}>
