@@ -13,15 +13,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav style={{ 
-      display: 'flex', 
-      justifyContent: 'space-between', 
-      alignItems: 'center', 
-      padding: '1.5rem 2rem', 
-      background: 'var(--bg-card)', 
-      borderBottom: '2px solid var(--primary)',
-      color: 'var(--primary)' 
-    }}>
+    <nav className="navbar">
       <Link to="/" style={{ 
         color: 'var(--primary)', 
         textDecoration: 'none', 
@@ -31,10 +23,10 @@ const Navbar = () => {
         letterSpacing: '-0.02em'
       }}>AffiliatePro</Link>
       
-      <div style={{ display: 'flex', alignItems: 'center', gap: '2rem' }}>
+      <div className="nav-links">
         {user ? (
           <>
-            <div style={{ display: 'flex', gap: '1.5rem', fontWeight: '600', fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+            <div className="nav-menu" style={{ display: 'flex', gap: '1.5rem', fontWeight: '600', fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
               {user.role === 'admin' ? (
                 <>
                   <Link to="/admin" style={{ color: 'var(--primary)', textDecoration: 'none' }}>Admin Home</Link>

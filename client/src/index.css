@@ -65,10 +65,22 @@ h1 {
   -webkit-text-fill-color: transparent;
 }
 
+@media (max-width: 768px) {
+  h1 { font-size: 1.8rem; }
+  h2 { font-size: 1.5rem; }
+  h3 { font-size: 1.2rem; }
+}
+
 .container {
   max-width: 1280px;
   margin: 0 auto;
   padding: 3rem 2rem;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 2rem 1rem;
+  }
 }
 
 /* Glassmorphism Cards */
@@ -83,6 +95,12 @@ h1 {
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   overflow: hidden;
+}
+
+@media (max-width: 768px) {
+  .card {
+    padding: 1.5rem;
+  }
 }
 
 .card::before {
@@ -148,4 +166,42 @@ input:focus, select:focus {
 
 input::placeholder {
   color: var(--text-muted);
+}
+
+/* Responsive Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 2rem;
+  background: var(--bg-card);
+  border-bottom: 2px solid var(--primary);
+  backdrop-filter: blur(10px);
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+@media (max-width: 900px) {
+  .navbar {
+    flex-direction: column;
+    gap: 1.2rem;
+    padding: 1rem;
+  }
+  
+  .nav-links {
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .nav-menu {
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.8rem !important;
+  }
 }
