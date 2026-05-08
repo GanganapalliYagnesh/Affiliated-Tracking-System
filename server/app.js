@@ -50,6 +50,10 @@ const webhookRoutes = require('./routes/webhookRoutes');
 const notificationRoutes = require('./routes/notificationRoutes');
 const settingsRoutes = require('./routes/settingsRoutes');
 
+// Serve Static Files (Frontend)
+const clientPath = path.join(__dirname, '../client/dist');
+app.use(express.static(clientPath));
+
 app.use('/api/auth', authRoutes);
 app.use('/api/affiliates', affiliateRoutes);
 app.use('/api/track', trackingRoutes);
@@ -58,6 +62,12 @@ app.use('/api/webhooks', webhookRoutes);
 app.use('/api/notifications', notificationRoutes);
 app.use('/api/settings', settingsRoutes);
 
-app.get('/', (req, res) => res.send('Affiliate Tracking API Running'));
+// Catch-all route to serve the React app
+app.get('*', (req, res) => {
+  if (req.path.startsWith('/api')) {
+    return res.status(404).json({ error: 'API route not found' });
+  }
+  res.sendFile(path.join(clientPath, 'index.html'));
+});
 
 module.exports = app;
