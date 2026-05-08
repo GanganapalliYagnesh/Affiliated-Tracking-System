@@ -64,6 +64,10 @@ app.use('/api/webhooks', webhookRoutes);
 app.use('/api/notifications', notificationRoutes);
 app.use('/api/settings', settingsRoutes);
 
+// Database Seeding Route (Admin only)
+const { seedDatabase } = require('./controllers/adminController');
+app.use('/api/admin/seed', seedDatabase);
+
 // Catch-all route to serve the React app
 app.get('*', (req, res) => {
   if (req.path.startsWith('/api')) {

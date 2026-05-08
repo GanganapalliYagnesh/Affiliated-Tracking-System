@@ -201,3 +201,62 @@ exports.updateConversionStatus = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+exports.seedDatabase = async (req, res) => {
+  try {
+    // Clear existing (optional, but good for demo)
+    await User.deleteMany({ role: { $ne: 'admin' } }); // Keep current admin logged in
+    await Affiliate.deleteMany({});
+    await Campaign.deleteMany({});
+    await Click.deleteMany({});
+    await Conversion.deleteMany({});
+    await Commission.deleteMany({});
+
+    // Create Campaigns
+    const campaigns = await Campaign.create([
+      { name: 'Premium Watches', product_name: 'LuxWatch', commission_type: 'percentage', commission_value: 12, status: 'active' },
+      { name: 'Fashion Summer', product_name: 'TrendyTee', commission_type: 'flat', commission_value: 500, status: 'active' }
+    ]);
+
+    // Create a demo affiliate
+    const affUser = await User.create({
+      name: 'Test Affiliate',
+      email: `affiliate_${Date.now()}@test.com`,
+      mobile: '9999999999',
+      password: 'Admin@123',
+      role: 'affiliate'
+    });
+
+    const affiliate = await Affiliate.create({
+      user_id: affUser._id,
+      affiliate_code: 'demo123',
+      status: 'approved'
+    });
+
+    // Simulate Traffic
+    let totalCommissions = 0;
+    for (const campaign of campaigns) {
+      const numClicks = 50;
+      for (let i = 0; i < numClicks; i++) {
+        const clickId = crypto.randomBytes(8).toString('hex');
+        await Click.create({ click_id: clickId, affiliate_id: affiliate._id, campaign_id: campaign._id });
+        
+        // 10% conversion rate
+        if (i % 10 === 0) {
+          const revenue = 5000;
+          const comm = campaign.commission_type === 'percentage' ? (revenue * campaign.commission_value) / 100 : campaign.commission_value;
+          totalCommissions += comm;
+          const conv = await Conversion.create({ click_id: clickId, affiliate_id: affiliate._id, campaign_id: campaign._id, revenue, status: 'approved' });
+          await Commission.create({ conversion_id: conv._id, affiliate_id: affiliate._id, amount: comm, status: 'approved' });
+        }
+      }
+    }
+
+    affiliate.total_earnings = totalCommissions;
+    affiliate.available_balance = totalCommissions;
+    await affiliate.save();
+
+    res.json({ message: 'Database successfully seeded with demo data!' });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};

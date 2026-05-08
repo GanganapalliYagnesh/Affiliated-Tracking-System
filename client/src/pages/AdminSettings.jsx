@@ -124,6 +124,31 @@ const AdminSettings = () => {
             />
           </div>
 
+          <div style={{ gridColumn: 'span 2', marginTop: '3rem', paddingTop: '2rem', borderTop: '2px dashed var(--border)' }}>
+            <h3 style={{ color: 'var(--secondary)' }}>System Maintenance</h3>
+            <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginBottom: '1.5rem' }}>Populate the database with realistic demo campaigns, affiliates, and conversion data for testing.</p>
+            <button 
+              type="button" 
+              onClick={async () => {
+                if(window.confirm('This will populate demo data. Continue?')) {
+                  setMessage('Seeding database... please wait');
+                  try {
+                    const res = await fetch(`${API_BASE}/api/admin/seed`, {
+                      method: 'POST',
+                      headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+                    });
+                    if (res.ok) setMessage('Database successfully seeded!');
+                  } catch (err) {
+                    setMessage('Seeding failed.');
+                  }
+                }
+              }}
+              style={{ background: 'transparent', border: '1px solid var(--secondary)', color: 'var(--secondary)', padding: '0.8rem 2rem', borderRadius: '8px', cursor: 'pointer', fontWeight: 'bold' }}
+            >
+              Seed Demo Data
+            </button>
+          </div>
+
           <div style={{ gridColumn: 'span 2', marginTop: '2rem' }}>
             <button type="submit" className="btn-primary" style={{ width: '100%', padding: '1rem' }}>Save System Configuration</button>
           </div>
