@@ -11,12 +11,32 @@ const cookieParser = require('cookie-parser');
 const app = express();
 
 // Middlewares
+
 app.use(cors({
-  origin: [
-    'http://localhost:5173',
-    'https://affiliated-tracking-system.vercel.app'
-  ],
-  credentials: true
+  origin: function (origin, callback) {
+    if (!origin || process.env.NODE_ENV === 'development') {
+      return callback(null, true);
+    }
+    
+    const allowedOrigins = [
+      'https://affiliated-tracking-system.vercel.app'
+    ];
+
+    if (process.env.CLIENT_URL) {
+      allowedOrigins.push(process.env.CLIENT_URL);
+    }
+
+    const isAllowed = allowedOrigins.includes(origin) || origin.endsWith('.vercel.app');
+
+    if (isAllowed) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
 }));
 app.use(express.json());
 app.use(cookieParser());
