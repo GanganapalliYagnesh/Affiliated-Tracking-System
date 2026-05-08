@@ -26,7 +26,9 @@ app.use(cors({
       allowedOrigins.push(process.env.CLIENT_URL);
     }
 
-    const isAllowed = allowedOrigins.includes(origin) || origin.endsWith('.vercel.app');
+    const isAllowed = allowedOrigins.includes(origin) || 
+                     origin.endsWith('.vercel.app') || 
+                     origin.endsWith('.onrender.com');
 
     if (isAllowed) {
       callback(null, true);
